@@ -1,0 +1,10 @@
+Compile:
+javac *.java
+
+Run:
+for filename in ./*.dat;
+do
+    echo $filename;
+    java CacheDriver < $filename;
+done;
+

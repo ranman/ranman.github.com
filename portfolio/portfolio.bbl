@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}
+
+\bibitem{pat94}
+David~A. Patterson and John~L. Hennessy.
+\newblock {\em Computer Organization \& Design: The Hardware/Software
+  Interface}.
+\newblock Morgan Kaufmann Publishers, San Francisco, California, 1994.
+
+\bibitem{TanenbaumWoodhull08}
+Andrew~S. Tanenbaum and Albert~S. Woodhull.
+\newblock {\em Operating Systems Design and Implementation}.
+\newblock Pearson, Upper Saddle River, NJ, 3. edition, 2008.
+
+\end{thebibliography}

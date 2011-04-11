@@ -1,0 +1,110 @@
+\documentclass[12pt,oneside]{amsart} 
+\usepackage{fullpage} 
+\usepackage{url} 
+\usepackage{listings} 
+\usepackage{algorithmic} 
+\title{Analysis of Methods of Numerical Analysis} 
+\lstset{ %
+language=Java,                % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize
+}
+
+\author{Joseph R. Hunt} \begin{document} 
+\maketitle
+
+\section{Introduction} This project was prepared with \LaTeX{} for my MATH 153 Honors Contract during the fall semester of 2009. It is supplementary material for the Java programs I wrote to explore the methods of numerical analysis described in Chapter 2 of \emph{Numerical Analysis} by Burden Faires~\cite{bF93}.
+
+\section{Bisection}
+
+The bisection method is a root-finding algorithm. It is an iterative algorithm that works by repeatedly bisecting an interval then selecting the subinterval in which a root is suspected to be. It is a very simple method but the cost of that simplicity is it's relative inefficiency.
+
+\subsection{The Algorithm}
+
+The algorithm takes endpoints $a$,$b$; tolerance $TOL$, and a maximum number of iterations $N_0$, as inputs. 
+\begin{algorithmic}
+	\REQUIRE $f(a)$ and $f(b)$ have opposite signs. \STATE $i=1$ \WHILE{$i\leq N_0$} \STATE $p = a + (b-a)/2$ \IF{$f(p) = 0 $ or $\frac{(b - a)}{2} < TOL$} \RETURN{$p$} \ENDIF \STATE $i = i + 1$ \IF{$f(a)f(p) > 0$} \STATE $a = p$ \ELSE \STATE $b = p$ \ENDWHILE \PRINT Method failed to return after $N_0$ iterations. 
+\end{algorithmic}
+\subsection{Analysis}
+
+This algorithm relies on the Intermediate Value Theorem which states that if $f(x)$ is continuous for interval $[a,b]$ and $f(a)$ and $f(b)$ have opposite signs then there exists $p$ in interval $[a,b]$ where $f(p) = 0$. This method will, albeit slowly, always converge towards a solution. There are, however, several problems with this method. For one, there could be any number of roots in the interval $(a,b)$. Secondly, more accurate intermediate approximations of the actual root might be inadvertently discarded. Running the algorithm on a computer also raises several other issues, mostly due to floating point arithmetic. When multiplying $f(a)$ by $f(p)$ there is a chance of an underflow to 0 though it is unlikely because both values converge to 0. The second possible problem arises when when the tolerance is too small of a value to be represented correctly with floats or doubles.
+
+\section{Newton's Method}\label{sec:newtonsMethod}
+
+Newton's Method is an iterative root-finding algorithm best known for it's successively better approximations. The method works by taking an initial guess which is near the true root then the function is approximated with it's tangent line (using the derivative). The method is repeated using the x-intercept of the tangent line.
+
+\subsection{Algorithm}
+This algorithm takes the inputs: initial approximation $x_0$, tolerance $TOL$, maximum number of iterations $N_0$
+\begin{algorithmic}
+   \STATE $i=1$
+   \WHILE{$i\leq N_0$}
+      \STATE $x=x_0 - f(x_0)/f'(x_0)$
+      \IF{$\abs{x-x_0} < TOL$}
+      \RETURN $x$
+      \ENDIF
+      \STATE $i = i + 1$
+      \STATE $x_0 = x$
+   \ENDWHILE
+   \PRINT Method failed to return after $N_0$ iterations.
+\end{algorithmic}
+
+\subsection{Analysis}\label{subsec:newtonAnalysis}
+
+The method converges very quickly for most functions given a good first guess and a small interval. The rate of convergence for most functions is at least quadratic near zero, which means the number of correct digits should double every step. Since this function makes use of the tangent line, it can be used to find the maximums and minimums of a function as well since the derivative is 0 at minimums and maximums. There are some difficulties with the method however. First, if the initial guess is too far from the true zero, the method may fail to converge on the correct zero, or even on any zeroes. Secondly, several problems arise from the use of a derivative in the algorithm.
+
+Since derivatives might be computationally and analytically hard to obtain for complex equations, Newton's method may become unwieldy. Obviously if the derivative is 0 the method will not work. Also, if the derivative is very near 0, the tangent line may go past the actual root. If the derivative of the function is not continuous then the method will fail to converge. If the root being sought occurs more than once on the specified interval then it make take many iterations before the algorithm's quadratic convergence speed is obtained. If the derivative is hard to obtain or store, it might be advantageous to use the secant method described in section ~\ref{sec:secantMethod}.
+
+Much about the rate of convergence can be found from the derivatives. If the function is continuously differentiable, its derivative is not 0 at the root, and it has a second derivative at 0, then the rate of convergence is quadratic or faster. However, if the second derivative at the root is 0 the rate of convergence is merely quadratic. If the first derivative is 0 then the convergence is linear. In some cases Newton's method will fail to converge if the starting point is not in the interval where the method converges. If this is the case then the bisection method might be used to find a better initial guess. Another problem arises if the starting point causes the method to oscillate from one x intercept to another without ever converging. A simple function where Newton's method fails to converge is $f(x) = \sqrt[3]{x}$. No matter the starting point Newton's method will not converge on the root.
+
+\section{Secant Method}\label{sec:secantMethod}
+The secant method is an iterative root-finding algorithm that uses the roots of secant lines to better approximate the root of a function. Newton's method generally converges faster but the Secant method has the advantage that it does not need to evaluate both $f(x)$ and $f'(x)$ every step. In fact, since the secant method takes one less operation than Newton's method we can perform two steps with the secant method to every one step with Newton's method, which can sometimes be faster.
+
+\subsection{The Algorithm}
+This algorithm takes the inputs: initial approximations $x_0$, $x_1$, tolerance $TOL$, and maximum number of iterations $N_0$
+\begin{algorithm}
+   \STATE $i = 2$, $q_0 = f(x_0)$, $q_1 = f(x_1)$
+   \WHILE{$i \leq N_0$}
+      \STATE $x = x_1 - q_1(x_1 - x_0)/(q_1-q_0)$
+      \IF{$\abs{x-x_1} < TOL $}
+         \RETURN $x$
+      \ENDIF
+      \STATE $i = i+1$
+      \STATE $x_0 = x_1$,$q_0 = q_1$,$x_1 = x$,$q_1 = f(x)$
+   \ENDWHILE
+   \PRINT Method failed to return after $N_0$ iterations.
+\end{algorithm}
+
+\subsection{Analysis}
+This method is very similar to the method of false position with the only difference being the way the successive terms are defined. There are many interesting things to note about this method. For all functions $x_0$ and $x_1$ are interchangeable but that doesn't mean the choice doesn't matter. For some functions like $\sin{x}$, the choice of the guess determines the speed of convergence. The secant method uses the co-ordinates $(x_{i-1}, f(x_{i-1}))$, the values from the previous iteration. This method does have several pitfalls, however. It does not always converge like the bisection method. The function $xe^{-x}=0$ with guesses $x_0 = 1.5$ and $x_1 = 2.0$ will fail to converge. With $x^3$ or $\arctan{x}$ the method would converge quickly, but if the tolerance was set too high the method would continue to oscillate over 0, never reaching the root (but it would make a really cool picture).
+
+\section{Conclusions and Reflections}
+In conclusion, it seems that if calculating derivatives, either numerically or analytically, is not computationally intensive, Newton's method should have effective results for the majority of the applications. A very good algorithm would have the secant method, Newton's method, and the bisection method all at its disposal and decide which method would converge best for the given iteration. The bisection method can be used as a starter method for many of the other methods to get a good starting approximation.
+
+If I'd had more time on this project I would have liked to improve the GUI. I would also liked to add more methods like the method of false position. I would have liked to include more about the efficiency of the methods as well or offer different versions for execution. Finally, I'd have liked to do more on error analysis.
+\clearpage
+\appendix
+\section{Abstract Code}
+\texttt{AbstractMethod.java}
+\lstinputlisting{AbstractMethod.java}
+\clearpage
+\texttt{F.java}
+\lstinputlisting{F.java}
+\clearpage
+
+\section{Methods}
+\texttt{Bisection.java}
+\lstinputlisting{Bisection.java}
+\clearpage
+\texttt{Newtons.java}
+\lstinputlisting{Newtons.java}
+\clearpage
+\texttt{Secant.java}
+\lstinputlisting{Secant.java}
+
+
+\begin{thebibliography}
+	{10} \bibitem{bF93}Faires, Burden. \emph{Numerical Analysis}. Boston, MA: PWS-Kent, 1993.
+\end{thebibliography}
+
+\end{document} 

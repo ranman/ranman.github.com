@@ -1,0 +1,6 @@
+<<<<<<< .mine
+COMPONENT=TCPSendAppC
+=======
+COMPONENT=TCPTestAppC
+>>>>>>> .r16
+include $(MAKERULES)

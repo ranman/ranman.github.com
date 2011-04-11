@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="PaintClone" default="compile" basedir=".">
+
+
+    <property file="${user.home}/build.properties" />
+    <property file="default.properties" />
+
+    <path id="classpath">
+        <pathelement location="${classes.home}" />
+    </path>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --> 
+    <target         name="compile"
+             description="Compile all Java Source Files">
+
+        <mkdir dir="${classes.home}" />
+        <copy  todir="${classes.home}">
+            <fileset 
+            dir="${src.home}/edu/wcu/cs/cs363/team4/project04/gui/images" />
+        </copy> 
+        <javac      		srcdir="${src.home}"
+			       destdir="${classes.home}"
+				 debug="${compile.debug}"
+			   deprecation="${compile.deprecation}"
+			      optimize="${compile.optimize}" 
+		     includeantruntime="false" >
+
+            <classpath refid="classpath" />
+
+            <compilerarg value="-Xlint:all" />
+            <compilerarg value="-Xlint:-path" />
+            <compilerarg value="-Xlint:-serial" />
+        </javac>
+    </target>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --> 
+    <target         name="doc"
+             description="Create the documentation">
+        <javadoc   sourcepath="${src.home}"
+                      destdir="${docs.home}"
+		defaultexcludes="yes"
+		         author="true"
+			version="true"
+			   use="true"
+		   windowtitle="Paint Clone">
+        </javadoc>
+    </target>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --> 
+    <target         name="run"
+                 depends="dist"
+             description="runs the main java file">
+        <java     spawn="false" 
+                    jar="${dist.home}/${app.name}.jar"
+                   fork="true">
+        </java>
+    </target>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --> 
+    <target         name="dist"
+                 depends="compile"
+             description="Creates an executable jar file">
+	<mkdir dir="${dist.home}" />
+        <jar 
+            destfile="${dist.home}/${app.name}.jar" 
+            basedir="${classes.home}">
+            <manifest>
+                <attribute 
+                    name="Main-Class" 
+                    value="edu.wcu.cs.cs363.team4.project04.MainDriver"
+                    />
+            </manifest>
+        </jar>
+    </target>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --> 
+    <target         name="clean"
+             description="Delete classes, doc, and dist directories">
+        <delete dir="${classes.home}" />
+        <delete dir="${docs.home}" />
+        <delete dir="${dist.home}" />
+    </target>
+</project>

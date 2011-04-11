@@ -1,0 +1,4 @@
+MOTETECOM=serial@/dev/ttyUSB1:telosb java net.tinyos.tools.MsgReader SensorMessage
+
+
+

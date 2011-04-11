@@ -1,0 +1,4 @@
+export CLASSPATH=.
+export CLASSPATH=${CLASSPATH}:/usr/share/jfreechart-1.0/lib/jfreechart.jar
+export CLASSPATH=${CLASSPATH}:/usr/share/jcommon-1.0/lib/jcommon.jar
+export CLASSPATH=${CLASSPATH}:/opt/tinyos-2.x/support/sdk/java/tinyos.jar

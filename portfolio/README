@@ -1,0 +1,121 @@
+===============================================================================
+== README -- Computer Science Portfolio, Western Carolina University         ==
+===============================================================================
+This is the LaTeX template for the Computer Science Portfolio.  The document
+is broken down into a set of individual files to make things easier to work
+with.  Here are the files of interest:
+
+
+./portfolio.tex
+---------------
+This is the main document of the portfolio.  There's not a lot that you need
+to do here.  You do need to fill in some variables (i.e., your name, when
+you plan to graduate, which instructor taught each of your courses).  If you
+want to add some appendices, you'll need to add them here.
+
+
+./abstract.tex
+--------------
+This file will contain the abstract for your document.  See the contents of
+the file for a brief description of what it should contain.
+
+
+./introduction.tex
+------------------
+This file will contain the introduction to your entire portfolio.  See the
+contents of the file for a brief description of what it should contain.
+
+
+./studentLearningObjectives.tex
+-------------------------------
+This file sets of the chapter on the Student Learning Objectives.  It includes
+several other files.  You'll need to write a few sentences in this file to set
+the scene for the reset of the material, but the majority of the SLOs material
+will be in the files that follow.
+
+If you have not taken some of the courses that bring in some SLOs, you can edit
+this file to comment out the include of the others.  For example, if the only
+class you've taken is Software Engineering, you might comment out the include
+of the algorithms, systems, and ethics sections.
+
+
+./SLOs/softwareEngineering.tex
+------------------------------
+This file contains the write-up for the software engineering SLO.
+
+
+./SLOs/algorithms.tex
+---------------------
+This file contains the write-up for the algorithms SLO.
+
+
+./SLOs/systems.tex
+------------------
+This file contains the write-up for the systems SLO.
+
+
+./SLOs/communication.tex
+------------------------
+This file contains the write-up for the communication SLO.
+
+
+./SLOs/teamwork.tex
+-------------------
+This file contains the write-up for the teamwork SLO.
+
+
+./SLOs/ethics.tex
+-----------------
+This file contains the write-up for the ethics SLO.
+
+
+./appendices/appendixA.tex
+--------------------------
+This is a sample appendix that shows how you can put long source listings
+in the document.  You may need to add additional files like this for other
+appendices.  If you do add them, you'll need to add them to the end of
+portfolio.tex.
+
+
+./conclusions.tex
+-----------------
+This file will contain the conclusion to your entire portfolio.  See the
+contents of the file for a brief description of what it should contain.
+
+
+./bibliography.bib
+------------------
+This file contains a set of 'BibTeX' entries.  These represent things that
+you want to show up in the Bibliography of the document.  There's an example
+in the file.  You cite things in there using the \cite{} command -- there's
+an example in the document that does that too.
+
+
+./WcuPortfolio.cls
+------------------
+Don't touch this file.
+
+
+./consent.tex
+-------------
+Don't touch this file.
+
+
+./figures/
+----------
+This is a directory that contains figures.  Having figures in a separate
+directory just keeps things from getting too cluttered here.
+
+
+./workSamples/
+--------------
+This is a directory that contains work samples.  Having work samples in a
+separate directory just keeps things from getting too cluttered here.
+
+
+./Makefile
+----------
+If you work on your portfolio in a non-Windows OS, this will help you build
+your project.  Just type 'make' on the command line and, if there are no
+syntax errors in your files, this will build portfolio.pdf for you.
+'make clean' will clean things up for you.

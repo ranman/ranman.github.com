@@ -1,0 +1,60 @@
+\subsection{Systems}
+It is vital for a computer scientist to understand how computer systems operate at the lowest level because it allows them not only to create better code but to create better systems. When one understands what their code is ultimately doing they can fine-tune it to perform much faster and more efficiently. In this section I have two work samples of MIPS assembly code and one example of C code demonstrating threading.
+
+\subsubsection{AtoI}
+This program shows my basic understanding of and ability to manipulate assembly code. It shows how to use system calls and how to go about allocating data for a program.While simple I feel it's necessary to include this because of it's relative importance to my overall portfolio. Demonstrating mastery of a language, while not necessarily inline with this SLOs goals is nevertheless very important.
+You can see this program in Appendix~\ref{chap:appendixA}.
+
+\subsubsection{Three Procedures}
+For this assignment we were required to write three procedures, and a driver, in MIPS. The procedures were \texttt{strlen}, \texttt{strncpy}, and \texttt{mem\_align}. This program shows my understanding of low-level procedure calls: what needs to be passed, how, and what needs to be returned and how. Perhaps more importantly it shows what all needs to be kept track of when maintaining the executing environment across procedure calls, the stack pointer, the return address pointer, and so on.
+
+Listing~\ref{stackstuff} shows how to go about manipulating the stack to store the registers according to the rules one follows when one invokes a procedure.
+\lstset{language=[mips]Assembler,basicstyle=\footnotesize,numbers=left,numberstyle=\footnotesize,label=stackstuff}
+\begin{lstlisting}
+addi $sp, $sp, -16          # $sp-=4; /* allocate 4 words */
+sw $s0, 0($sp)              # *($sp + 0) = $s0 /* save $s0 */
+sw $s1, 4($sp)              # *($sp + 4) = $s1 /* save $s1 */
+sw $s2, 8($sp)              # *($sp + 8) = $s2 /* save $s2 */
+sw $s3, 12($sp)             # *($sp + 12) = $s3 /* save $s3 */
+--------------------------------------------------------------
+lw $s0, 0($sp)              # $s3 = *($sp + 0); /* restore $s0 */
+lw $s1, 4($sp)              # $s3 = *($sp + 4); /* restore $s1 */
+lw $s2, 8($sp)              # $s3 = *($sp + 8); /* restore $s2 */
+lw $s3, 12($sp)             # $s3 = *($sp + 12); /* restore $s3 */
+addi $sp, $sp, 16           # $sp+=4; /* deallocate 4 words */
+\end{lstlisting}
+
+You can see this entire program in Appendix~\ref{chap:appendixB}.
+
+\subsection{BoundedBuffer}
+This program was written for an assignment in CS370, Operating Systems. This program is most succinctly described as a thread-safe bounded circular buffer. Making use of the \textit{POSIX Threading} library this program provides a block of memory to which threads can write and read. If a thread attempts to write to the buffer, and the space available in the buffer is sufficient to hold the data the thread is writing, the thread will copy the data to the buffer and continue executing. However if the buffer is full on a write, or empty on a read, then the thread will block waiting for a read() or write() call to be made. Listing~\ref{bbh} shows the prototype of the bounded buffer as provided by Dr. Dalton.
+\lstset{language=c,basicstyle=\footnotesize,numbers=left,numberstyle=\footnotesize,label=bbh}
+\begin{lstlisting}
+#ifndef BOUNDEDBUFFER_H
+#define BOUNDEDBUFFER_H
+#include <pthread.h>
+typedef struct {
+  char* data;
+  int capacity;
+  int start;
+  int end;
+  int size;
+  pthread_mutex_t mutex;
+  pthread_cond_t cond;
+} BoundedBuffer;
+void bufferInit(BoundedBuffer* buffer, int capacity);
+void bufferWrite(BoundedBuffer* buffer, char* data, int count);
+void bufferRead(BoundedBuffer* buffer, char* data, int count);
+void bufferDeallocate(BoundedBuffer* buffer);
+#endif
+\end{lstlisting}
+
+You can see the implementation of these methods in Appendix~\ref{chap:appendixC}.
+\subsubsection{Reflection}
+I believe that an understanding of systems is very important for a computer scientist to quote the textbook for CS350, \textit{Computer Organization And Design}, ``The performance of software systems is dramatically affected by how well software designers understand the basic hardware technologies at work in a system'' ~\cite{pat94}. In addition to that it is necessary for a computer scientist to understand the relationships between the software and hardware, the design choices, and the reasons for those design choices. 
+
+Reflecting on my work from this area of computer science I can safely say I have a strong grasp of systems concepts. I understand pipelining, multi-cycle data paths, caches, virtual memory, assembly language, computer arithmetic, memory hierarchies, and I/O from the low level side. I do however wish I had a more complete understanding of caches. While I understand how they work and what they do, I don't understand the specifics of how a cache is set up.
+
+On a higher level Andrew S. Tanenbaum's book \textit{Operating Systems: Design and Implementation}, the textbook for CS370, provides an excellent description of what someone dealing with higher level OS code should be proficient in: ``system calls, processes, IPC, scheduling, I/O, deadlocks, memory management, threads, filesystems, and more'' ~\cite{TanenbaumWoodhull08}. I believe I am proficient in all of these, and more. I had the benefit of learning C at a much higher level than I had ever dealt with before, shown in my third work sample from this SLO, which taught me quite a bit about programming. In addition dealing with MINIX in CS370 also taught me quite a bit about the low level code in an operating system. I am still lacking in some areas at the higher level though. I don't feel I have a firm understanding of DMA and I still don't entirely understand batch processing algorithms.
+
+Despite the several pitfalls mentioned above I believe that my understanding of this topic is comprehensive.

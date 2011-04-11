@@ -1,0 +1,85 @@
+body {
+	font-family: sans-serif;
+	background: url("../img/space_tile.gif") repeat;
+	margin: 2em;
+}
+#language {
+   	z-index: 9999;
+	float:right;
+	position: fixed;
+	top: .5em;
+	right: .5em;
+}
+#container {
+	padding: 1em 0em;
+	color: black;
+	background-color: white;
+	margin: 70px auto 0;
+	width: 41em;
+	position: relative;
+}
+#logo {
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+#badges {
+    margin: 0 auto;
+    text-align: center;
+}
+h1 {
+	color: blue;
+    background: white;
+	font-weight: normal;
+	font-family: arial, serif;
+	text-align: center;
+}
+#contactInfo {
+	text-align: center;
+	color: #888;
+    background: white;
+	margin-bottom: 1em;
+}
+#contactInfo a {
+    background: white;
+	text-decoration: none;
+	color: #88E;
+}
+#contactInfo a:hover {
+	text-decoration: underline;
+}
+table {
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+thead tr th {
+	border-bottom: 1px solid #CCC;
+}
+tbody th {
+	text-align: right;
+	padding-right: 2em;
+}
+#portfolio {
+	margin-top: 0.5em;
+}
+#portfolio td {
+	padding: 0.3em 0;
+}
+#projects th {
+	font-weight: normal;
+	text-align: right;
+	padding-right: 1.2em;
+}
+ul.compact {
+	margin: 4em auto 1em;
+	padding: 0;
+	text-align: center;
+	font-size: 80%;
+	width: 70%;
+}
+ul.compact li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0 0.5em;
+	display: inline;
+}

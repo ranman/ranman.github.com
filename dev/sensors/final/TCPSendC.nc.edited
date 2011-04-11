@@ -1,0 +1,153 @@
+//
+// Sensor-testing module.
+//
+// Chris Blades
+// Randall Hunt
+// Benjamin Rudolph
+//
+
+#include "TCPMessage.h"
+
+//
+// The length of a single read cycle, in which data is read from all sensors on
+// the mote.
+#define CYCLE_LENGTH 340
+#define ROOT_ADDRESS 0
+
+module TCPSendC {
+    provides interface AMSend;
+
+    uses interface Boot;
+    uses interface SplitControl as AMControl;
+    uses interface Packet as Packet;
+    uses interface AMPacket as AMPacket;
+    uses interface AMSend as Send;
+    uses interface Receive;
+}
+implementation {
+    bool sendLocked = TRUE;  // a lock on sending
+
+    message_t *message;
+    message_t *TCPMsg;
+
+    //
+    // This implements things we want to get done when the device starts.
+    // Start AMControl so we can do networking and begin our read cycle.
+    //
+    event void Boot.booted() {
+        call AMControl.start();     // Start the radio.
+    }
+
+    //////////////////////////////////
+    // AMSend Implementation
+    // /////////////////////////////
+
+    //
+    // cancels the current outstanding message
+    //
+    // @param msg the message_t struct that is outstanding
+    //
+    command error_t AMSend.cancel(message_t *msg) {
+        sendLocked = FALSE;
+    }
+
+    //
+    // returns the payload originally sent with this implementation, minus any
+    // extra data this implementation attatched.
+    //
+    // @param msg message_t struct to dig payload out of
+    // @param len the length of the payload
+    //
+    command void *AMSend.getPayload(message_t *msg, uint8_t len) {
+        return (call Send.getPayload(msg, len));
+    }
+    
+    //
+    // returns the maximum payload length that is allowed; i.e. the max payload
+    // length of the underlying AMSend minus any overhead we introduce
+    //
+    command uint8_t AMSend.maxPayloadLength() {
+        return (call Send.maxPayloadLength()) - TCPHeaderSize;
+    }
+
+    //
+    // Sends a message
+    //
+    // @param addr address to send the message to
+    // @param msg  message to send
+    // @param len  length of the message to send
+    command error_t AMSend.send(am_addr_t addr, message_t *msg, uint8_t len) {
+        TCPMessage *TCPPayload; 
+        if (sendLocked) {
+            return !SUCCESS;
+        } else {
+<<<<<<< .mine
+            // create our own payload
+            //
+            if (call Send.send(AM_BROADCAST_ADDR, mp, sizeof(TCPMessage))
+=======
+            message = msg;
+            TCPPayload = (TCPMessage *)call Send.getPayload(TCPMsg, 
+                                                            sizeof(TCPMessage));
+            TCPPayload->ACK = FALSE;
+            memcpy(&TCPPayload->payload, call Send.getPayload(msg, len), 
+                                                            TCPPayloadSize);
+
+            if (call Send.send(AM_BROADCAST_ADDR, TCPMsg, sizeof(TCPMessage))
+>>>>>>> .r16
+                    == SUCCESS) {
+                sendLocked = TRUE;
+            }
+        }
+    }
+
+    //
+    // Signaled when packet gets done sending, signals sendDone on the 
+    // sender above us
+    //
+    // @param msg   the messsage_t struct that was sent
+    // @param error status of send
+    event void Send.sendDone(message_t *msg, error_t error) {
+        if (msg == TCPMsg) {
+            signal AMSend.sendDone(TCPMsg, error);
+        }
+    }
+
+    //
+    // This implements things to be done when we receive a message.
+    //
+    // @param  bufPtr  The message buffer handed to us by TinyOS
+    // @param  payload The message content
+    // @param  len     The size of the message
+    // @return         The buffer we give to the OS to use.
+    //
+    event message_t* Receive.receive(message_t* bufPtr, void* payload,
+                                     uint8_t len) {
+        return bufPtr;
+    }
+
+    
+
+    //
+    // This implements things we want to check after the radio is started.
+    //
+    // @param status Did the radio start successfully?
+    //
+    event void AMControl.startDone(error_t status) {
+        if (status != SUCCESS) {        // If it didn't start, start it.
+            call AMControl.start();
+        }
+    }
+
+
+    //
+    // gets called when AMControl is stopped, which we'll never do.
+    //
+    // @param if AMControl was stopped successfully or not
+    //
+    event void AMControl.stopDone(error_t status) {
+        // DO NOTHING
+    }
+
+}
+

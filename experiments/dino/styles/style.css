@@ -1,0 +1,31 @@
+body {
+	background: #FCCC04;
+	background: -moz-linear-gradient(top, #FCCC04, #FFFFFF);
+	background: -webkit-gradient(linear, left top, left bottom, from(#FCCC04), to(#FFF));
+	filter: progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#FCCC04', EndColorStr='#FFFFFF', GradientType=0);
+}
+#container{
+	width: 630px;
+	color: black;
+	margin: 20px auto 0;
+}
+
+#header {
+	background-image: url("../img/DinoHeader.png");
+	height: 190px;
+}
+#nav {
+	background-image: url("../img/navYellow.png");
+	height: 51px;
+}
+#dinoDiv {
+	background-image: url("../img/DinoSelect.png");
+	height: 175px;
+}
+#displayDiv {
+	height: 596px;
+	background: white;
+	background-image: url(../img/footer.png);
+	background-position: bottom;
+	background-repeat: no-repeat;
+}
