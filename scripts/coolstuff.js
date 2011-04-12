@@ -1,11 +1,20 @@
 var i = 0;
-function changeLogo() {
-	var logo =["img/profile1.jpg", "img/profile2.jpg", "img/logo_sm.png"];
-	$('#logo').attr('src', logo[i]);
+function changebg() {
+	var bg =  ["img/spacetile1.jpg", 
+               "img/spacetile2.jpg", 
+               "img/spacetile3.jpg",
+               "img/spacetile4.jpg",
+               "img/spacetile5.jpg",
+               "img/spacetile6.jpg",
+               "img/spacetile7.jpg",
+               "img/spacetile8.jpg",
+               "img/spacetile9.jpg",
+               "img/spacetile10.jpg"];
+	$('body').css("background", "url("+bg[i]+")")
 	i++;
-	if(i > 2) i = 0;
+	if(i > 9) i = 0;
 }
 
 $(document).ready(function(){
-	$('#logo').live('click', changeLogo);
+    $('#logo').live('click', changebg());
 });

@@ -1,7 +1,6 @@
 body {
 	font-family: sans-serif;
-	background: url("../img/space_tile.gif") repeat;
-	margin: 2em;
+	background: url("../img/spacetile1.jpg") repeat;
 }
 #language {
    	z-index: 9999;
@@ -11,42 +10,37 @@ body {
 	right: .5em;
 }
 #container {
-	padding: 1em 0em;
 	color: black;
-	background-color: white;
-	margin: 70px auto 0;
-	width: 41em;
+	background-color: rgba(255,255,255,.6);
+	margin: 30px auto 0;
+	width: 44em;
 	position: relative;
+    border: 2px solid blue;
 }
-#logo {
-	display: block;
-	margin: 0 auto;
-	position: relative;
-}
-#badges {
-    margin: 0 auto;
-    text-align: center;
-}
-h1 {
-	color: blue;
-    background: white;
+#container>h1 {
+	color: black;
+    padding-top: 1em;
 	font-weight: normal;
 	font-family: arial, serif;
+    font-size: 30px;
 	text-align: center;
 }
 #contactInfo {
 	text-align: center;
-	color: #888;
-    background: white;
+	color: #000;
 	margin-bottom: 1em;
 }
-#contactInfo a {
-    background: white;
+#contactInfo>a {
 	text-decoration: none;
-	color: #88E;
+	color: #00F;
 }
-#contactInfo a:hover {
+#contactInfo>a:hover {
 	text-decoration: underline;
+}
+#badges {
+    margin: 0 auto;
+    padding: 1em;
+    text-align: center;
 }
 table {
 	margin: 0 auto;
@@ -71,7 +65,7 @@ tbody th {
 	padding-right: 1.2em;
 }
 ul.compact {
-	margin: 4em auto 1em;
+	margin: 2em auto 1em;
 	padding: 0;
 	text-align: center;
 	font-size: 80%;
