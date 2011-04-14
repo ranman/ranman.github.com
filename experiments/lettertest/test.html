@@ -7,10 +7,11 @@
 <script src="../../scripts/jquery-animate-css-rotate-scale.js"></script>
 <script src="../../scripts/jquery.quicksand.js"></script>
 <style type="text/css">
+#translatedText { display: none }
 </style>
 <script type="text/javascript">
-var API_KEY = 'AIzaSyCLvkAPr9kQEpsm1UDAkqFCdZGzQQpz7VM'
-var API_URL = 'https://www.googleapis.com/language/translate/v2/languages?'
+var API_KEY = 'AIzaSyBIFRz6sfJ1wq7LqykoXeYA3R37Wt5KM9o'
+var API_URL = 'https://www.googleapis.com/language/translate/v2'
 function injector(t, splitter) {
     var letter_array = t.text().split(splitter), inject = '', dict = {};
     if (letter_array.length) {
@@ -27,36 +28,34 @@ function injector(t, splitter) {
 }
 
 $(document).ready(function() {
-//    injector($('.cool'), ''); 
-//    injector($('.cooler'), '');
-//    $('.cool').click(function(e) {
-//        $(".cool").quicksand( $('.cooler span'), {
-//            duration: 1000,
-//            easing: 'easeInOutQuad',
-//            adjustHeight: 'dynamic',
-//            useScaling: true,
-//        });
-//        e.preventDefault()
-//    });
     function updateText() {
         $('#inputBoxText').empty().append($('#inputBox').val());
     }
-    window.setInterval(updateText, 1000);
+    var interval_id = window.setInterval(updateText, 1000);
     $('#inputBox').bind('keyup', updateText);
     $('#translateButton').click(function(e) {
-        $.getJSON(API_URL+API_KEY+'&source=en&target=de&q=' + escape($('#inputBoxText').html()),
+        window.clearInterval(interval_id);
+        $.getJSON(API_URL+'?key='+API_KEY+'&callback=?&source=en&target=de&q=' + escape($('#inputBoxText').html()),
             function(data) {
                 $('#translatedText').empty().append(data.data.translations[0].translatedText);
+                injector($('#inputBoxText'), '');
+                injector($('#translatedText'), ''); 
+                $('#inputBoxText').quicksand( $('#translatedText span'), {
+                    duration: 1000,
+                    easing: 'easeInOutQuad',
+                    useScaling: true,
+                });
             }
         );
+        e.preventDefault();
     });
 });
 </script>
 </head>
 <body>
 <p>Type Here: <input id='inputBox' type="text"></input></p>
-<h1 id="inputBoxText"></h1>
-<h2 id="translatedText"></h1>
+<h2 id="inputBoxText"></h2>
+<h2 id="translatedText"></h2>
 <input id="translateButton" type="button" value="Translate"></input>
 </body>
 </html>
