@@ -77,3 +77,7 @@ ul.compact li {
 	padding: 0 0.5em;
 	display: inline;
 }
+.hidden {
+    display: none;
+}
+#logo .char1 {}

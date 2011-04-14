@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../../scripts/jquery.min.js"></script>
+<script src="../../scripts/jquery.easing.js"></script>
+<script src="../../scripts/jquery-css-transform.js"></script>
+<script src="../../scripts/jquery-animate-css-rotate-scale.js"></script>
+<script src="../../scripts/jquery.quicksand.js"></script>
+<style type="text/css">
+.cooler { display: none; }
+.cool { overflow: hidden; }
+</style>
+<script type="text/javascript">
+function injector(t, splitter) {
+    var letter_array = t.text().split(splitter)
+    var inject = '';
+    var dict = {};
+    if (letter_array.length) {
+        $(letter_array).each(function(i, item) {
+            if (item in dict) {
+                dict[item]++;
+            } else {
+                dict[item] = 0;
+            }
+            var item_dict = {
+                '!' : "EX",
+                ' ' : "SPACE",
+                "'" : "QUOTE",
+                '"' : "DQUOTE",
+                '.' : "PERIOD",
+            };
+            var item2 = item;
+            if (item in item_dict) {
+                item2 = item_dict[item];
+            }
+            inject += '<span data-id="'+item2+dict[item]+'">'+item+'</span>';
+        });
+        t.empty().append(inject);
+    }
+}
+
+$(document).ready(function() {
+    injector($('.cool'), ''); 
+    injector($('.cooler'), '');
+    $('.cool').click(function(e) {
+        $(".cool").quicksand( $('.cooler span'), {
+            duration: 1000,
+            //easing: 'easeInOutQuad',
+            adjustHeight: 'dynamic',
+            useScaling: true
+        });
+        e.preventDefault()
+    });
+});
+</script>
+</head>
+<body>
+<h1 id="source" class="cool">raquel is the greatest girl ever!</h1>
+<h1 id="destination" class="cooler">the greatest girl ever is raquel!</h1>
+</body>
+</html>
