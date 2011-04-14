@@ -29,7 +29,7 @@ function injector(t, splitter) {
 
 $(document).ready(function() {
     function updateText() {
-        $('#inputBoxText').empty().append($('#inputBox').val());
+        $('#inputBoxText').empty().append(escape($('#inputBox').val()));
     }
     var interval_id = window.setInterval(updateText, 1000);
     $('#inputBox').bind('keyup', updateText);
