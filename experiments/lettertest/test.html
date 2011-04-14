@@ -9,7 +9,8 @@
 <style type="text/css">
 </style>
 <script type="text/javascript">
-var API_KEY = 'ABQIAAAAr70YujBQWntLWLkshpOiexTvVSVcNRF7TaueKFLNdWKJuJAX9xTdP_Xi80pSPUpxdDmR8loIVLT7oQ'
+var API_KEY = 'AIzaSyCW896NJ5aw5x7Vu1PIfx8S1XyOTPSnQQU'
+var API_URL = 'https://www.googleapis.com/language/translate/v2/languages?'
 function injector(t, splitter) {
     var letter_array = t.text().split(splitter), inject = '', dict = {};
     if (letter_array.length) {
@@ -43,7 +44,7 @@ $(document).ready(function() {
     window.setInterval(updateText, 1000);
     $('#inputBox').bind('keyup', updateText);
     $('#translateButton').click(function(e) {
-        $.getJSON('https://www.googleapis.com/language/translatev2?key='+API_KEY+'&source=en&target=de&q=' + escape($('#inputBoxText').html()),
+        $.getJSON(API_URL+API_KEY+'&source=en&target=de&q=' + escape($('#inputBoxText').html()),
             function(data) {
                 $('#translatedText').empty().append(data.data.translations[0].translatedText);
             }
