@@ -7,14 +7,11 @@
 <script src="../../scripts/jquery-animate-css-rotate-scale.js"></script>
 <script src="../../scripts/jquery.quicksand.js"></script>
 <style type="text/css">
-.cooler { display: none; }
-.cool { overflow: hidden; }
 </style>
 <script type="text/javascript">
+var API_KEY = 'ABQIAAAAr70YujBQWntLWLkshpOiexTvVSVcNRF7TaueKFLNdWKJuJAX9xTdP_Xi80pSPUpxdDmR8loIVLT7oQ'
 function injector(t, splitter) {
-    var letter_array = t.text().split(splitter)
-    var inject = '';
-    var dict = {};
+    var letter_array = t.text().split(splitter), inject = '', dict = {};
     if (letter_array.length) {
         $(letter_array).each(function(i, item) {
             if (item in dict) {
@@ -22,40 +19,43 @@ function injector(t, splitter) {
             } else {
                 dict[item] = 0;
             }
-            var item_dict = {
-                '!' : "EX",
-                ' ' : "SPACE",
-                "'" : "QUOTE",
-                '"' : "DQUOTE",
-                '.' : "PERIOD",
-            };
-            var item2 = item;
-            if (item in item_dict) {
-                item2 = item_dict[item];
-            }
-            inject += '<span data-id="'+item2+dict[item]+'">'+item+'</span>';
+            inject += '<span data-id="'+item.charCodeAt(0)+'_'+dict[item]+'">'+item+'</span>';
         });
         t.empty().append(inject);
     }
 }
 
 $(document).ready(function() {
-    injector($('.cool'), ''); 
-    injector($('.cooler'), '');
-    $('.cool').click(function(e) {
-        $(".cool").quicksand( $('.cooler span'), {
-            duration: 1000,
-            //easing: 'easeInOutQuad',
-            adjustHeight: 'dynamic',
-            useScaling: true
-        });
-        e.preventDefault()
+//    injector($('.cool'), ''); 
+//    injector($('.cooler'), '');
+//    $('.cool').click(function(e) {
+//        $(".cool").quicksand( $('.cooler span'), {
+//            duration: 1000,
+//            easing: 'easeInOutQuad',
+//            adjustHeight: 'dynamic',
+//            useScaling: true,
+//        });
+//        e.preventDefault()
+//    });
+    function updateText() {
+        $('#inputBoxText').empty().append($('#inputBox').val());
+    }
+    window.setInterval(updateText, 1000);
+    $('#inputBox').bind('keyup', updateText);
+    $('#translateButton').click(function(e) {
+        $.getJSON('https://www.googleapis.com/language/translatev2?key='+API_KEY+'&source=en&target=de&q=' + escape($('#inputBoxText').html()),
+            function(data) {
+                $('#translatedText').empty().append(data.data.translations[0].translatedText);
+            }
+        );
     });
 });
 </script>
 </head>
 <body>
-<h1 id="source" class="cool">raquel is the greatest girl ever!</h1>
-<h1 id="destination" class="cooler">the greatest girl ever is raquel!</h1>
+<p>Type Here: <input id='inputBox' type="text"></input></p>
+<h1 id="inputBoxText"></h1>
+<h2 id="translatedText"></h1>
+<input id="translateButton" type="button" value="Translate"></input>
 </body>
 </html>
