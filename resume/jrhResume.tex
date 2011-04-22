@@ -14,7 +14,8 @@
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 %Setup hyperref package, and colours for links, text and headings
 \usepackage{hyperref}
-%\definecolor{linkcolor}{HTML}{FF0080} %light purple link for the email
+%\definecolor{linkcolor}
+%{HTML}{FF0080} %light purple link for the email
 \definecolor{linkcolor}{HTML}{00008B}
 \definecolor{shade}{HTML}{D4D7FE}      %light blue shade
 %\definecolor{text1}{HTML}{2b2b2b}      %text is almost black
@@ -28,7 +29,8 @@
 \usepackage{fancyhdr}                  %custom footer
 \pagestyle{fancy}
 \fancyhf{}
-\rfoot{\color{headings} {\sffamily Last update: \today}. Typeset with X\LaTeX}
+\rfoot{\small\color{headings} {\sffamily Last update: \today}. 
+Typeset with X\LaTeX}
 \renewcommand{\headrulewidth}{0pt}
 
 \usepackage{titlesec}                  %custom \section
@@ -41,9 +43,11 @@
 
 \begin{document}
 \color{text1} % set text color for the whole doc
-     \par{\centering{\sffamily\Huge Joseph Randall Hunt}\\
-      \color{headings}\fontspec[Variant = 2]{Zapfino} Curriculum  {Vit\fontspec[Variant = 3]{Zapfino}\ae}\\[25pt]\par
-      %\color{headings}\fontspec[Variant = 2]{Zapfino}R\'esum\'e\\[20pt]
+     \par{\centering{\sffamily\huge Joseph Randall Hunt}\\
+      \color{headings}\fontspec[Variant = 2]{Zapfino} Curriculum 
+      {Vit\fontspec[Variant = 3]{Zapfino}\ae}\\[25pt]\par
+      %\color{headings}\fontspec[Variant = 2]
+      %{Zapfino}R\'esum\'e\\[20pt]
       {\color{white} \hrule}} %does this rule really change anything?
 
 \begin{minipage}[t]{0.5\textwidth}
@@ -52,14 +56,14 @@
 
 \section{Work Experience}
    \raggedleft
-   \textsc{\normalsize January 2011} -- \emph{\normalsize Present}\par
+   \textsc{\normalsize January 2011 -- May 2011}\par
    \raggedright\large Undergraduate Researcher\\
    \textsc{NASA Ames Research Center}\\
-   \normalsize{Creating an Automatic KML Tour Generator and KML Tour 
-   Editor using Django, python, SQL, and javascript. Media import tool
+   \normalsize{Created an Automatic KML Tour Generator and KML Tour 
+   Editor using Django, Python, SQL, and Javascript. Media import tool
    pulls from several different sources and loads all data into a 
-   database. Project will hopefully generate a whole new set of data 
-   products for the Maps team.}\\[5pt]
+   database. Project generated a whole new set of data products for
+   the Maps team.}\\[5pt]
 
    \raggedleft
    \textsc{\normalsize August 2010 -- December 2010}\par
@@ -94,11 +98,11 @@
    \begin{tabular}{rl}
       \textbf{\textsc{Languages}}:
                         & \textbf{Professional}:\\
-                        & Java, C, PHP, (My,Postgre)SQL, \\
-                        & HTML5/CSS3/Javascript, XML\\
+                        & Java, C, Python, (My,Postgre)SQL,\\
+                        & HTML/CSS/Javascript, XML\\
                         & \\
                         & \textbf{Familiar}:\\
-                        & Scheme (Lisp), Python, C++\\
+                        & Scheme (Lisp), PHP, C++\\
                         & Perl, Prolog, Objective-C\\
                         & \\
       \textbf{\textsc{Frameworks}}:
@@ -123,9 +127,13 @@
                                     %Can't include this in a lot of forms.
                                     %& Born in North Carolina in 1991\\
          \raisebox{-1pt}{\Phone}    &+1(650) 690-0657
-         &\raisebox{2.9pt}{\multirow{2}{*}{\includegraphics[height=1.45cm]{randall}}}\\ 
-         \raisebox{-1pt}{\textsc{www}} &\href{http://www.jrhunt.org/}{www.jrhunt.org}&\\
-         \raisebox{-3pt}{\Envelope} &\href{mailto:randall.hunt@gmail.com}{randall.hunt@gmail.com}& 
+         &\raisebox{2.9pt}{\multirow{2}{*}{
+             \includegraphics[height=1.45cm]{randall}
+             }}\\ 
+         \raisebox{-1pt}{\textsc{www}} &
+         \href{http://www.jrhunt.org/}{www.jrhunt.org}&\\
+         \raisebox{-3pt}{\Envelope} &
+         \href{mailto:randall.hunt@gmail.com}{randall.hunt@gmail.com}& 
       \end{tabular}
     }
 }\\[3pt]
@@ -158,10 +166,13 @@
    IEEE Member\\
    \href{http://polaris.cs.wcu.edu/~acm/}{Student ACM Chapter}\\
    \href{https://github.com/ranman}{Open-Source Contributor}\\
-   Active on \href{http://stackoverflow.com/users/240004/ranman}{StackOverflow}\\
-   Passionate about \href{http://robotics.punahou.edu/}{Robotics}\\
+   Active on \href{http://stackoverflow.com/users/240004/ranman}
+   {StackOverflow}\\
+   Passionate about Robotics\href{http://robotics.punahou.edu/}{[1]}
+   \href{http://irg.arc.nasa.gov}{[2]}\\
    \href{http://www.youtube.com/user/ranman96734}{Rubik's Cubes}\\
-   \href{http://www.punahouaquatics.org/Home.jsp?team=hipaq}{Love to Surf and Swim}\\
+   \href{http://www.punahouaquatics.org/Home.jsp?team=hipaq}
+   {Love to Surf and Swim}\\
 \section{Coursework}
    Multiuser Chat System in Java\\
    Address Book with RMI in Java\\
@@ -175,6 +186,7 @@
 \section{Honors}
    Academic Technology Advisory Committee\\
    AP Scholar's Award\\
+   Several Presenations at NASA\\
    Deans List\\
    Honors College\\
 \end{minipage}
