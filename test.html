@@ -76,11 +76,12 @@ $(document).ready(function() {
           });
     }
     $('#translateButton').click(translate);
+    $('#targetLanguage').change(translate);
 });
 </script>
 </head>
 <body>
-<input id="inputBox" type="text"></input>
+<input id="inputBox" size="70" type="text"></input>
 <h1 id="textToTranslate"></h1>
 <input id="translateButton" type="button" value="Translate"></input>
 <select id="sourceLanguage">
