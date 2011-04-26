@@ -18,19 +18,18 @@ function cleanDOM(lbl) {
         $(this).replaceWith(function() { return this.innerHTML; });
     });
 } 
+//Update text to translate
+function updateText() {
+    $('#textToTranslate').empty().append(
+        //Clean up the input
+        $('#inputBox').val()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        );
+}
 
 $(document).ready(function() {
-    //Update text to translate
-    function updateText() {
-        $('#textToTranslate').empty().append(
-            //Clean up the input
-            $('#inputBox').val()
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            );
-    }
-    
     //Update every second incase someone pastes something in.
     var intervalID = window.setInterval(updateText, 1000);
     //Update on every keyup event
@@ -44,34 +43,33 @@ $(document).ready(function() {
         window.clearInterval(intervalID);
         
         //Get the source, target, and query
-        var src = $("#sourceLanguage").val();
-        var tgt = $("#targetLanguage").val();
-        var q = $('#textToTranslate').html();
-
+        var src = $("#sourceLanguage");
+        var tgt = $("#targetLanguage");
+        var textToTranslate = $('#textToTranslate');
 
         //Get the translation from Google
         $.getJSON(API_URL,
           {
             key: API_KEY,
-            source: src,
-            target: tgt,
-            q: q
+            source: src.val(),
+            target: tgt.val(),
+            q: textToTranslate.html()
           },
           function(data) {
             if(data.data.translations) {
                 //Make sure the data is there, otherwise error.
-                $('#textToTranslate')
+                textToTranslate
                 .textsand($('<h1>'
                     +data.data.translations[0].translatedText+'</h1>'));
             } else {
-                $('#textToTranslate').textsand($('<h1>There was an error</h1>'));
+                textToTranslate.textsand($('<h1>There was an error</h1>'));
             }
           }).error(function() {
-            $('#textToTranslate').textsand($('<h1>There was an error</h1>'));
+            textToTranslate.textsand($('<h1>There was an error</h1>'));
           }).complete(function() {
-              var tempVal = $('#sourceLanguage').val();
-              $('#sourceLanguage').val($('#targetLanguage').val())
-              $('#targetLanguage').val(tempVal);
+              var tempVal = src.val();
+              src.val($('#targetLanguage').val())
+              tgt.val(tempVal);
               setTimeout("cleanDOM($('#textToTranslate'))", 2100)
           });
     }
@@ -192,5 +190,14 @@ $(document).ready(function() {
     <option value="cy">Welsh</option> 
     <option value="yi">Yiddish</option>
 </select>
+<br />
+Duration:
+<input id="duration" type="range" min="100" max="5000" value="1000" step="10" onchange="showValue(this.value)"/>
+<span id="durationNum">1000</span>
+<script type="text/javascript">
+function showValue(newValue) {
+    document.getElementById("durationNum").innerHTML=newValue;
+}
+</script>
 </body>
 </html>
