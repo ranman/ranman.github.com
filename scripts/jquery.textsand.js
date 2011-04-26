@@ -46,7 +46,6 @@ Github site: http://github.com/ranman/textsand
             injector($this, '');
             injector(newText, '');
             $this.quicksand(newText.children('span'), settings);
-            setTimeout(cleanDOM($this), 2000);
         });
     };
 })( jQuery );
