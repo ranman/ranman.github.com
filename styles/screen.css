@@ -1,6 +1,6 @@
 body {
 	font-family: sans-serif;
-	background: url("../img/spacetile1.jpg") repeat;
+	background-color: black;
 }
 #language {
    	z-index: 9999;
@@ -9,11 +9,25 @@ body {
 	top: .5em;
 	right: .5em;
 }
+#nav {
+	z-index: 9999;
+	float: left;
+	position: fixed;
+	border: 2px solid blue;
+	background-color: rgba(255,255,255,.55);
+	top: 10em;
+	left: 1em;
+	width: 10em;
+	margin-right: 2em;
+}
+#nav>ul {
+	list-style: square;
+}
 #container {
 	color: black;
-	background-color: rgba(255,255,255,.6);
+	background-color: rgba(255,255,255,.55);
 	margin: 30px auto 0;
-	width: 44em;
+	width: 42em;
 	position: relative;
     border: 2px solid blue;
 }

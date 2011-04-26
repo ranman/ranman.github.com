@@ -32,17 +32,6 @@ Github site: http://github.com/ranman/textsand
                 txt.empty().append(inject);
             }
         }
-        function cleanDOM(lbl) {
-            var to_clean = lbl.children('span').filter(function() {
-                if($(this).attr('data-id')) {
-                    return $(this).attr('data-id').indexOf('txtsnd') != -1;
-                }
-                return false;
-            });
-            to_clean.each(function() {
-                $(this).replaceWith(function() { return this.innerHTML; });
-            });
-        } 
         var settings = {
             'duration': 2000,
             'adjustHeight': 'auto',
@@ -57,6 +46,7 @@ Github site: http://github.com/ranman/textsand
             injector($this, '');
             injector(newText, '');
             $this.quicksand(newText.children('span'), settings);
+            setTimeout(cleanDOM($this), 2000);
         });
     };
 })( jQuery );
