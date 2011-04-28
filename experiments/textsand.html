@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="scripts/jquery.min.js"></script>
-<script src="scripts/jquery.easing.js"></script>
-<script src="scripts/jquery-css-transform.js"></script>
-<script src="scripts/jquery-animate-css-rotate-scale.js"></script>
-<script src="scripts/jquery.quicksand.js"></script>
-<script src="scripts/jquery.textsand.js"></script>
+<script src="../scripts/jquery.min.js"></script>
+<script src="../scripts/jquery.easing.js"></script>
+<script src="../scripts/jquery-css-transform.js"></script>
+<script src="../scripts/jquery-animate-css-rotate-scale.js"></script>
+<script src="../scripts/jquery.quicksand.js"></script>
+<script src="../scripts/jquery.textsand.js"></script>
 <script type="text/javascript">
 var API_KEY = 'AIzaSyBIFRz6sfJ1wq7LqykoXeYA3R37Wt5KM9o'
 var API_URL = 'https://www.googleapis.com/language/translate/v2?callback=?'
-function cleanDOM(lbl) {
-    var to_clean = lbl.children('span').filter(function() {
-        return $(this).attr('data-id').indexOf('txtsnd') != -1;
-    });
-    to_clean.each(function() {
-        $(this).replaceWith(function() { return this.innerHTML; });
-    });
-} 
 //Update text to translate
 function updateText() {
     $('#textToTranslate').empty().append(
@@ -28,9 +20,14 @@ function updateText() {
         .replace(/>/g, "&gt;")
         );
 }
+//Update the duration slider value
+function showValue(newValue) {
+    document.getElementById("durationNum").innerHTML=newValue;
+}
 
+//When the document has loaded
 $(document).ready(function() {
-    //Update every second incase someone pastes something in.
+    //Update every second incase someone pastes something in or the spellchecker udpates.
     var intervalID = window.setInterval(updateText, 1000);
     //Update on every keyup event
     $('#inputBox').bind('keyup', function(e) {
@@ -46,6 +43,13 @@ $(document).ready(function() {
         var src = $("#sourceLanguage");
         var tgt = $("#targetLanguage");
         var textToTranslate = $('#textToTranslate');
+        var animateDuration = parseInt($('#duration').val());
+
+        //Disable everything while we're updating
+        src.attr('disabled', 'disabled');
+        tgt.attr('disabled', 'disabled');
+        $('#translateButton').attr('disabled', 'disabled');
+        $('#inputBox').attr('disabled', 'disabled');
 
         //Get the translation from Google
         $.getJSON(API_URL,
@@ -55,23 +59,31 @@ $(document).ready(function() {
             target: tgt.val(),
             q: textToTranslate.html()
           },
+          //On success, animate in the new data.
           function(data) {
             if(data.data.translations) {
                 //Make sure the data is there, otherwise error.
                 textToTranslate
-                .textsand($('<h1>'
-                    +data.data.translations[0].translatedText+'</h1>'));
+                .textsand($('<h1>'+data.data.translations[0].translatedText+'</h1>'), { 'duration' : animateDuration });
             } else {
                 textToTranslate.textsand($('<h1>There was an error</h1>'));
             }
           }).error(function() {
             textToTranslate.textsand($('<h1>There was an error</h1>'));
-          }).complete(function() {
+          })
+          //When done change source language to target langauge
+          .complete(function() {
               var tempVal = src.val();
-              src.val($('#targetLanguage').val())
+              src.val(tgt.val())
               tgt.val(tempVal);
-              setTimeout("cleanDOM($('#textToTranslate'))", 2100)
           });
+          //Re-enable inputs after the animation is done.
+          setTimeout(function() { 
+            src.removeAttr('disabled');
+            tgt.removeAttr('disabled');
+            $('#translateButton').removeAttr('disabled');
+            $('#inputBox').removeAttr('disabled'); }, 
+            animateDuration+50);
     }
     $('#translateButton').click(translate);
     $('#targetLanguage').change(translate);
@@ -79,6 +91,8 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<div style="margin: 0 auto; width: 50%">
+<h3>This is a demonstration of a textual animation plugin I wrote. Notice how the letters move to the nearest position that they appear in the target text. Letters not present in the source text have an ease/alpha effect and appear while the other letters are transitioning.</h3>
 <input id="inputBox" size="70" type="text"></input>
 <h1 id="textToTranslate"></h1>
 <input id="translateButton" type="button" value="Translate"></input>
@@ -192,12 +206,8 @@ $(document).ready(function() {
 </select>
 <br />
 Duration:
-<input id="duration" type="range" min="100" max="5000" value="1000" step="10" onchange="showValue(this.value)"/>
+<input id="duration" type="range" min="500" max="10000" value="1000" step="10" onchange="showValue(this.value)"/>
 <span id="durationNum">1000</span>
-<script type="text/javascript">
-function showValue(newValue) {
-    document.getElementById("durationNum").innerHTML=newValue;
-}
-</script>
+</div>
 </body>
 </html>

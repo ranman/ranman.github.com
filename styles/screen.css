@@ -8,6 +8,7 @@ body {
 	position: fixed;
 	top: .5em;
 	right: .5em;
+    color: white;
 }
 #nav {
 	z-index: 9999;
@@ -50,6 +51,14 @@ body {
 }
 #contactInfo>a:hover {
 	text-decoration: underline;
+}
+#experiments {
+    margin: 0 auto;
+    padding: 1em;
+    text-align: center;
+}
+#experiments ul{
+  list-style-type: none; 
 }
 #badges {
     margin: 0 auto;
