@@ -11,12 +11,11 @@
 <script type="text/javascript">
 $(function() {
     $('.button').click(function(e) {
-        $('#scoreboard').quicksand($('#updated_scoreboard li'), {
-            duration: 3000
-            attribute: 'id'
-            easing: 'easeInOutQuad'
-        }
-        );
+        $('#scoreboard').quicksand($('#updated_scoreboard > li'), {
+            duration: 1000,
+            easing: 'easeInOutQuad',
+        });
+        e.preventDefault();
     });
 });
 </script>
