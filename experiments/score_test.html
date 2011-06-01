@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../scripts/jquery.min.js"></script>
+    <script src="../scripts/jquery.easing.js"></script>
+    <script src="../scripts/jquery-css-transform.js"></script>
+    <script src="../scripts/jquery-animate-css-rotate-scale.js"></script>
+    <script src="../scripts/jquery.quicksand.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+$(function() {
+    $('.button').click(function(e) {
+        $('#scoreboard').quicksand($('#updated_scoreboard li'), {
+            duration: 3000
+            attribute: 'id'
+            easing: 'easeInOutQuad'
+        }
+        );
+    });
+});
+</script>
+<ul id="scoreboard">
+    <li data-id="team1">Blah1</li>
+    <li data-id="team2">Blah2</li>
+    <li data-id="team3">Blah3</li>
+    <li data-id="team4">Blah4</li>
+    <li data-id="team5">Blah5</li>
+    <li data-id="team6">Blah6</li>
+    <li data-id="team7">Blah7</li>
+</ul>
+
+<ul id="updated_scoreboard" style="display: none">
+    <li data-id="team2">Blah2</li>
+    <li data-id="team1">Blah1</li>
+    <li data-id="team4">Blah4</li>
+    <li data-id="team7">Blah7</li>
+    <li data-id="team5">Blah5</li>
+    <li data-id="team3">Blah3</li>
+    <li data-id="team6">Blah6</li>
+</ul>
+
+<a class="button" href="#">Update Scores</a>
+</body>
+</html>
