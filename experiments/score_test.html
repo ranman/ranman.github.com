@@ -9,10 +9,28 @@
 </head>
 <body>
 <script type="text/javascript">
+(function($) {
+    $.fn.shuffle = function() {
+        return this.each(function(){
+            var items = $(this).children();
+            return (items.length) ? $(this).html($.shuffle(items)) : this;
+        });
+    }
+    $.shuffle = function(arr) {
+        for(
+            var j,x,i = arr.length; i;
+            j = parseInt(Math.random() * i),
+            x = arr[--i], arr[i] = arr[j], arr[j] = x
+        );
+        return arr;
+    }
+})(jQuery);
+
 $(function() {
     $('.button').click(function(e) {
         $('#scoreboard').quicksand($('#updated_scoreboard > li'), {
-            duration: 1000,
+            duration: 300,
+            adjustHeight: 'dynamic',
             easing: 'easeInOutQuad',
         });
         e.preventDefault();
@@ -27,16 +45,6 @@ $(function() {
     <li data-id="team5">Blah5</li>
     <li data-id="team6">Blah6</li>
     <li data-id="team7">Blah7</li>
-</ul>
-
-<ul id="updated_scoreboard" style="display: none">
-    <li data-id="team2">Blah2</li>
-    <li data-id="team1">Blah1</li>
-    <li data-id="team4">Blah4</li>
-    <li data-id="team7">Blah7</li>
-    <li data-id="team5">Blah5</li>
-    <li data-id="team3">Blah3</li>
-    <li data-id="team6">Blah6</li>
 </ul>
 
 <a class="button" href="#">Update Scores</a>
