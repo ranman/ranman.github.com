@@ -33,6 +33,7 @@
 #photos {
     margin: 0 auto;
     line-height: 0;
+    height: 700px;
 }
 #photos img {
     width: 100% !important;
@@ -48,7 +49,8 @@ $(document).ready(function() {
         var params = {
             "query": "SELECT uid, name, pic_small FROM user WHERE uid = me() OR uid IN (SELECT uid2 FROM friend WHERE uid1 = me())",
             "access_token": $("#auth_token").val(),
-            "format": "JSON"
+            "format": "JSON",
+            "callback": "?"
         };
         $.getJSON(url, params, function(data) { 
             var photos = [];
