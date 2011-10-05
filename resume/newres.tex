@@ -1,0 +1,144 @@
+\documentclass[letterpaper,11pt]{article}
+
+%-----------------------------------------------------------
+\usepackage[empty]{fullpage}
+\usepackage{color,xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{00008B}
+\definecolor{shade}{HTML}{D4D7FE}      %light blue shade
+\definecolor{text1}{HTML}{000000}      %text is black
+\definecolor{headings}{HTML}{00008B}   %navy blue
+\hypersetup{   colorlinks,breaklinks,
+               urlcolor=linkcolor,
+               linkcolor=linkcolor
+}
+\definecolor{mygrey}{gray}{0.80}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Adjust margins to 0.5in on all sides
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textheight}{1.0in}
+
+%-----------------------------------------------------------
+%Custom commands
+\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+\newcommand{\resheading}[1]{{\large \colorbox{mygrey}{\begin{minipage}{\textwidth}{\textbf{#1 \vphantom{p\^{E}}}}\end{minipage}}}}
+\newcommand{\ressubheading}[4]{
+\begin{tabular*}{7.0in}{l@{\extracolsep{\fill}}r}
+		\textbf{#1} & #2 \\
+		\textit{#3} & \textit{#4} \\
+\end{tabular*}\vspace{-6pt}}
+%-----------------------------------------------------------
+
+
+\begin{document}
+
+\begin{tabular*}{7.5in}{l@{\extracolsep{\fill}}r}
+\textbf{\large Joseph Randall Hunt}  & 650.690.0657 (phone)\\
+144 Avonlea Pl &  randallhunt@gmail.com\\
+Johnson City, TN  37604& http://www.ranman.org/\\
+\end{tabular*}
+\\
+
+\vspace{0.1in}
+\resheading{Education}
+\begin{itemize}
+\item
+	\ressubheading{Western Carolina University}{Cullowhee, NC}{B.S., Computer Science (Grades: 80\%)}{Aug. 2009 - May. 2012}
+	\begin{itemize}
+		\resitem{Relevant courses: Data Structures, Software Engineering, Wireless Sensor Networks, Internet Security and Ethics, Computer Graphics, Calculus, Discrete Mathematics, Statistics, Computer Networking, Computer Organization}
+	\end{itemize}
+\item
+	\ressubheading{Punahou Academy}{Honolulu, HI}{High School}{2005-2009}
+	\begin{itemize}
+		\resitem{Graduated with Honors. Deans' list every year. One of four seniors out of 400 selected for special recognition by the faculty. High scores on SAT/ACT/AP exams.}
+	\end{itemize}
+\end{itemize}
+
+\resheading{Work Experience}
+\begin{itemize}
+\item
+	\ressubheading{SpotOn}{New York, NY}{Software Engineer}{May 2011 - Oct. 2011}
+	\begin{itemize}
+		\resitem{Designed and implemented a collaborative filtering recommendation engine in Python and C which improved recommendation speed by \%300. Used SciPy and NumPy to dramatically increase speed.}
+		\resitem{Wrote scripts to automate deployment and logging of Amazon Web Services. Used the boto Python framework.}
+		\resitem{Designed and coded the company landing page.}
+	\end{itemize}
+\item
+   \ressubheading{NASA Ames Research Center}{Mountain View, CA}{Software Engineer}{Jan. 2011 - May. 2011}
+   \begin{itemize}
+      \resitem{Created an Automatic KML Tour Generator and KML Tour Editor using Django, Python, SQL, and Javascript. Media import tool pulls from several different sources and loads all data into a database. Project generated a whole new set of data products for the Maps team.}
+   \end{itemize}
+\item
+   \ressubheading{NASA Langley Research Center}{Hampton, VA}{Software Engineer}{May 2010 - Aug. 2010}
+      \begin{itemize}
+         \resitem{Worked on several tools for mass properties evaluation
+         which culminated in the design a mass properties API. Also worked
+         with an 8 person team to design and evaluate a series of tests on
+         a flotation concept. If implemented project could save millons of
+         dollars. Findings were published to NASA's main webpage, AIAA 
+         newsletter, and several other notable websites.}
+      \end{itemize}
+\item
+   \ressubheading{Western Carolina University}{Cullowhee, NC}{Various Roles}{Aug. 2009 - May 2011}
+      \begin{itemize}
+         \resitem{Resolved IT issues for students and faculty. Also taught several workshops on web development.}
+         \resitem{Assisted professor and students in introductory computer science courses as a TA.}
+         \resitem{Maintained the computer science lab computers running Linux, Windows, and OSX with several VMs. Created scripts to automatically update and backup all computers and all VMs. Managed backups leading to a \%5 decrease in downtime from previous administrator.}
+      \end{itemize}
+\end{itemize}
+\pagebreak
+\resheading{Skills}
+\begin{description}
+\item[Languages:]
+C, Java, Python, Javascript, PHP, Ruby, Prolog, HTML/CSS, SQL, LISP, MIPS, Objective-C, French, German, Spanish
+\item[Systems/Tools:]
+OS X, Linux (CentOS, Gentoo, Ubuntu, Debian), Windows, MySQL, MongoDB, vim, emacs, xcode
+\item[Frameworks/APIs:]
+jQuery, node, processing, pyramid, django, SciPy, NumPy, Foursquare, Facebook, Google (maps, translate, docs, etc.), cocoa, ant, jUnit
+\end{description}
+
+\resheading{Honors/Awards/Presentations}
+\begin{itemize}
+   \item Third Place HackNY Fall 2011 Hackathon (out of 25 teams and 150 competitors)
+   \item HackNY Fellow (one of 35 students selected to intern at NYC startups)
+   \item Deans List, Honors College
+   \item Featured in Honor's College ``Imagine'' magazine
+   \item Only student representative on Academic Technology Committee
+   \item AP Scholar's Award
+   \item Several presentations at NASA
+\end{itemize}
+\resheading{Activities and Societies}
+\begin{itemize}
+   \resitem{IEEE Member}
+   \resitem{\href{http://polaris.cs.wcu.edu/~acm/}{Student ACM Chapter}}
+   \resitem{\href{https://github.com/ranman}{Open-Source Contributor}}
+   \resitem{Active on 
+      \href{http://stackoverflow.com/users/240004/ranman}
+   {StackOverflow}}
+   \resitem{Passionate about Robotics
+      \href{http://robotics.punahou.edu/}{[1]}
+      \href{http://irg.arc.nasa.gov}{[2]}}
+   \resitem{\href{http://www.youtube.com/user/ranman96734}{Rubik's Cubes}}
+\end{itemize}
+\resheading{Coursework and Independent Projects}
+\begin{itemize}
+   \resitem{\href{http://www.mosaicmachine.com/}{Mosaic Machine}}
+   \resitem{\href{http://www.locreep.com/}{LoCreep}}
+   \resitem{Multiuser Chat System in Java}
+   \resitem{Set Associative Cache Simulator in Java}
+   \resitem{Tokenizer and Parser in C}
+   \resitem{Wireless Sensor Grapher in TinyC+Java}
+   \resitem{TCP Implementation in TinyC}
+   \resitem{Adventure Game in Prolog}
+\end{itemize}
+\pagebreak
+
+\resheading{References}
+Please contact me. This document is hosted online and I would prefer not to reveal my former employer's contact information.
+\end{document}
