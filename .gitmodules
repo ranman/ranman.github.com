@@ -1,0 +1,3 @@
+[submodule "FriendViewer"]
+	path = FriendViewer
+	url = git@github.com:ranman/FriendViewer.git
