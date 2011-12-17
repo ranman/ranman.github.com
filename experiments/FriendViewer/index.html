@@ -23,11 +23,12 @@
     <script type="text/javascript">
 var FriendViewer = FriendViewer || new function() {
     this.build = function(response) {
+        console.log(response);
         FB.api({
             method: 'fql.query',
             query: 'SELECT uid, sex, name, pic_big, pic_square, relationship_status FROM user '
                     +'WHERE uid IN '
-                    +'(SELECT uid2 FROM friend WHERE uid1 ='+uid+')'
+                    +'(SELECT uid2 FROM friend WHERE uid1 ='+'uid'+')'
         }, function (response) {
             console.log(response);
         });
@@ -50,3 +51,5 @@ window.fbAsyncInit = function() {
   document.getElementById('fb-root').appendChild(e);
 }());
     </script>
+</body>
+</html>
