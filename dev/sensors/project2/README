@@ -1,3 +1,0 @@
-Just call: MOTECOM=serial@/dev/ttyUSB0:telosb java TabbedView
-And watch the magic.
-We got a message to go every 320 ms with no loss and go down to 310 with some loss.
