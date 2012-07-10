@@ -58,7 +58,7 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.ht
 # ----------------------- #
 
 # Github repositories
-github_user: ranman
+github_user:
 github_repo_count: 0
 github_show_profile_link: false
 github_skip_forks: true
@@ -89,7 +89,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name: RandallHunt
+disqus_short_name: spacehackers
 disqus_show_comment_count: true
 
 # Google Analytics
