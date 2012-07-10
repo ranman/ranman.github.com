@@ -3,11 +3,11 @@
 # ----------------------- #
 
 url: http://ranman.github.com
-title: AstroHacker
-subtitle: Musings with my head in the stratosphere
-author: Your Name
+title: Space Hacker
+subtitle: Posts about space, science, romance, new york, and programming
+author: Randall Hunt
 simple_search: http://google.com/search
-description:
+description: Want to download some thoughts?
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -45,7 +45,7 @@ titlecase: true       # Converts page and post titles to titlecase
 
 # list each of the sidebar modules you want to include, in the order you want them to appear.
 # To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like 'custom/asides/custom_aside_name.html'
-default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.html, asides/delicious.html, asides/pinboard.html, asides/googleplus.html]
+default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.html, asides/delicious.html, asides/pinboard.html, asides/googleplus.html, asides/coderwall.html]
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
@@ -97,3 +97,6 @@ google_analytics_tracking_id: UA-33268389-1
 
 # Facebook Like
 facebook_like: true
+
+# Coderwall Badges
+coderwall_user: ranman
