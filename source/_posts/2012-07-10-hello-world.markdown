@@ -8,4 +8,8 @@ categories:
 
 Appropriate Music: {% spotify spotify:track:16MBgVIBhdZjORLDrcLU2c %}
 
+My logo: {% img /images/logo.png %}
+
+
+
 This is my first test blog post.
