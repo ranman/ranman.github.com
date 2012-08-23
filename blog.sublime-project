@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+		{
+            "path": ".",
+			"folder_exclude_patterns": [".pygments-cache", ".sass-cache", "*.old", "_deploy"]
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Octopress Blog",
+			"cmd": ["rake generate"]
+		}
+	]
+}
