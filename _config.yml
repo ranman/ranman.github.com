@@ -16,7 +16,7 @@ description: Want to download some thoughts?
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /atom.xml
+subscribe_rss: http://feeds.feedburner.com/PandaInASpaceSuit
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:
@@ -59,7 +59,7 @@ default_asides: [asides/recent_posts.html, asides/twitter.html, asides/googleplu
 
 # Github repositories
 github_user: ranman
-github_repo_count: 0
+github_repo_count: 5
 github_show_profile_link: true
 github_skip_forks: true
 
@@ -93,7 +93,7 @@ disqus_short_name: spacehackers
 disqus_show_comment_count: true
 
 # Google Analytics
-google_analytics_tracking_id: UA-33268389-1
+google_analytics_tracking_id: UA-34981821-1
 
 # Facebook Like
 facebook_like: true
