@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: space | Panda In A Space Suit]]></title>
+  <link href="http://ranman.github.com/blog/categories/space/atom.xml" rel="self"/>
+  <link href="http://ranman.github.com/"/>
+  <updated>2012-12-06T02:33:51-05:00</updated>
+  <id>http://ranman.github.com/</id>
+  <author>
+    <name><![CDATA[Randall Hunt]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[apod.nasa.gov for your twitter background]]></title>
+    <link href="http://ranman.github.com/blog/2012/07/25/apod-dot-nasa-dot-gov-for-your-twitter-background/"/>
+    <updated>2012-07-25T19:00:00-04:00</updated>
+    <id>http://ranman.github.com/blog/2012/07/25/apod-dot-nasa-dot-gov-for-your-twitter-background</id>
+    <content type="html"><![CDATA[<p>So I like space and I thought my twitter background should reflect that.</p>
+
+<p>Wouldn't it be cool if this:</p>
+
+<p><img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/290/picture.png"></p>
+
+<p>Could be this:</p>
+
+<p><img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/291/pic.png"></p>
+
+<p>requirements:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>PIL==1.1.7
+</span><span class='line'>requests==0.13.3
+</span><span class='line'>requests-oauth==0.4.1</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So you can probably just run (hopefully in a virtualenv):
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pip install PIL requests requests-oauth</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next you'll want to use this script:
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apod.py  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">re</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">urllib</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">Image</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">cStringIO</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">oauth_hook</span> <span class="kn">import</span> <span class="n">OAuthHook</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">requests</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">APOD</span> <span class="n">index</span> <span class="n">page</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">apodbaseurl</span> <span class="o">=</span> <span class="s">&#39;http://apod.nasa.gov/apod/{}&#39;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">This</span> <span class="ow">is</span> <span class="n">how</span> <span class="n">we</span> <span class="n">look</span> <span class="k">for</span> <span class="n">the</span> <span class="n">image</span> <span class="n">on</span> <span class="n">the</span> <span class="n">page</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">regex</span> <span class="o">=</span> <span class="s">r&#39;a href=&quot;(image.*)&quot;&#39;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">You</span> <span class="n">can</span> <span class="n">adjust</span> <span class="n">this</span> <span class="n">but</span> <span class="n">twitter</span> <span class="n">only</span> <span class="n">allows</span> <span class="mi">800</span><span class="n">k</span> <span class="n">uploads</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">imgsize</span> <span class="o">=</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">900</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">This</span> <span class="n">our</span> <span class="n">twitter</span> <span class="n">API</span> <span class="n">endpoint</span> <span class="k">for</span> <span class="n">changing</span> <span class="n">the</span> <span class="n">background</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">twitter_endpoint</span> <span class="o">=</span> <span class="s">&#39;http://api.twitter.com/1/account/update_profile_background_image.json&#39;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Create</span> <span class="n">a</span> <span class="n">twitter</span> <span class="n">app</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dev</span><span class="o">.</span><span class="n">twitter</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">new</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">After</span> <span class="n">creation</span> <span class="ow">and</span> <span class="n">clicking</span> <span class="n">the</span> <span class="n">generate</span> <span class="n">access</span> <span class="n">token</span> <span class="n">button</span><span class="p">,</span> <span class="n">click</span> <span class="n">through</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">to</span> <span class="n">the</span> <span class="n">oauth</span> <span class="n">tab</span> <span class="ow">and</span> <span class="n">use</span> <span class="n">the</span> <span class="n">info</span> <span class="kn">from</span> <span class="nn">there</span> <span class="nn">in</span> <span class="nn">the</span> <span class="nn">variables</span> <span class="nn">below.</span><span class="err">&lt;/</span><span class="nn">h1</span><span class="err">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">OAuthHook</span><span class="o">.</span><span class="n">consumer_key</span> <span class="o">=</span> <span class="s">&#39;blarg&#39;</span>
+</span><span class='line'><span class="n">OAuthHook</span><span class="o">.</span><span class="n">consumer_secret</span> <span class="o">=</span> <span class="s">&#39;blarg&#39;</span>
+</span><span class='line'><span class="n">access_token</span> <span class="o">=</span> <span class="s">&#39;blarg&#39;</span>
+</span><span class='line'><span class="n">access_token_secret</span> <span class="o">=</span> <span class="s">&#39;blarg&#39;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Setup</span> <span class="n">the</span> <span class="n">hook</span> <span class="n">to</span> <span class="n">call</span> <span class="n">before</span> <span class="n">we</span> <span class="n">make</span> <span class="n">a</span> <span class="n">request</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">oauth_hook</span> <span class="o">=</span> <span class="n">OAuthHook</span><span class="p">(</span><span class="n">access_token</span><span class="p">,</span> <span class="n">access_token_secret</span><span class="p">,</span> <span class="n">header_auth</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">get_apod_image</span><span class="p">():</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c"># grab the mainpage</span>
+</span><span class='line'><span class="n">apodpage</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">apodbaseurl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;astropix.html&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span class='line'><span class="c"># find image url</span>
+</span><span class='line'><span class="n">apodurl</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">apodpage</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="c"># open the image file</span>
+</span><span class='line'><span class="n">imgfile</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">apodbaseurl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">apodurl</span><span class="p">))</span>
+</span><span class='line'><span class="c"># parse it into memory (cStringIO is faster than StringIO)</span>
+</span><span class='line'><span class="n">imgstr</span> <span class="o">=</span> <span class="n">cStringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">imgfile</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span><span class='line'><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">imgstr</span><span class="p">)</span>
+</span><span class='line'><span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&quot;RGB&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="c"># resize preserving aspect ratio</span>
+</span><span class='line'><span class="n">img</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">(</span><span class="n">imgsize</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+</span><span class='line'><span class="c"># save it in the smallest size possible</span>
+</span><span class='line'><span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;apod.png&quot;</span><span class="p">,</span> <span class="s">&quot;PNG&quot;</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">update_twitter</span><span class="p">():</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">client</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">(</span><span class="n">hooks</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;pre_request&#39;</span><span class="p">:</span> <span class="n">oauth_hook</span><span class="p">})</span>
+</span><span class='line'><span class="n">image</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;apod.png&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">twitter_endpoint</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;tile&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">},</span>
+</span><span class='line'>                       <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;image&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s">&#39;apod.png&#39;</span><span class="p">,</span> <span class="n">image</span><span class="p">)})</span>
+</span><span class='line'><span class="c"># lets print and return some info for troubleshooting</span>
+</span><span class='line'><span class="k">print</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+</span><span class='line'><span class="k">return</span> <span class="n">response</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="o">&lt;</span><span class="n">strong</span><span class="o">&gt;</span><span class="n">name</span><span class="o">&lt;/</span><span class="n">strong</span><span class="o">&gt;</span> <span class="o">==</span> <span class="s">&#39;&lt;strong&gt;main&lt;/strong&gt;&#39;</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">get_apod_image</span><span class="p">()</span>
+</span><span class='line'><span class="n">update_twitter</span><span class="p">()</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now make a cronjob with something like:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>0 23 * * * ~/.virtualenvs/apod/bin/python ~/apod/apod.py</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>AND BOOM! You're done.</p>
+]]></content>
+  </entry>
+  
+</feed>
